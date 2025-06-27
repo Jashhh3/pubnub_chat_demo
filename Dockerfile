@@ -2,7 +2,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package files first
-COPY package*.json ./
+COPY package*.json /app/
 
 # Install dependencies
 RUN npm install
