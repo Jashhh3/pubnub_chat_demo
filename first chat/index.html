@@ -1,77 +1,67 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Hello, PubNub</title>
-		<!-- Update this block with the URL to the content delivery network version of the SDK -->
-		<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.8.4.1.js"></script>
-	</head>
-	<body>
-		<script>
-			const buttonClick = () => {
-				var input = document.getElementById('message-body');
-				publishMessage(input.value);
-				input.value = '';
-			};
+<head>
+  <meta charset="utf-8" />
+  <title>Hello, PubNub</title>
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.8.4.1.js"></script>
+</head>
+<body>
+  <div>
+    <input id="message-body" type="text" />
+    <button onclick="buttonClick()">Send</button>
+    <div id="messages"></div>
+  </div>
 
-			const showMessage = (msg) => {
-				var message = document.createElement('div');
-				message.innerText = msg;
-				document.getElementById('messages').appendChild(message);
-			};
+  <script>
+    const buttonClick = () => {
+      var input = document.getElementById('message-body');
+      publishMessage(input.value);
+      input.value = '';
+    };
 
-			let pubnub;
+    const showMessage = (msg) => {
+      var message = document.createElement('div');
+      message.innerText = msg;
+      document.getElementById('messages').appendChild(message);
+    };
 
-			const setupPubNub = () => {
-				// Update this block with your publish/subscribe keys
-				pubnub = new PubNub({
-					publishKey: 'pub-c-ed96ec13-d157-4f34-b26d-2beaf19bcc4d',
-					subscribeKey: 'sub-c-6c4f8459-3f89-4587-9784-7afa883a224b',
-					userId: 'myUniqueUserId',
-				});
+    let pubnub;
 
-				// create a local channel entity
-				const channel = pubnub.channel('hello_world');
-				// create a subscription on the channel
-				const subscription = channel.subscription();
-				// add listeners
+    const setupPubNub = () => {
+      pubnub = new PubNub({
+        publishKey: 'pub-c-ed96ec13-d157-4f34-b26d-2beaf19bcc4d',
+        subscribeKey: 'sub-c-6c4f8459-3f89-4587-9784-7afa883a224b',
+        userId: 'myUniqueUserId',
+      });
 
-				pubnub.addListener({
-					status: (s) => {
-						console.log('Status', s.category);
-					},
-				});
+      const channel = pubnub.channel('hello_world');
+      const subscription = channel.subscription();
 
-				// add an onMessage listener to the channel subscription
-				subscription.onMessage = (messageEvent) => {
-					showMessage(messageEvent.message.description);
-				};
+      pubnub.addListener({
+        status: (s) => {
+          console.log('Status', s.category);
+        },
+      });
 
-				// subscribe to the channel
-				subscription.subscribe();
-			};
-			// run after page is loaded
-			window.onload = setupPubNub;
+      subscription.onMessage = (messageEvent) => {
+        showMessage(messageEvent.message.description);
+      };
 
-			// publish message
-			const publishMessage = async (message) => {
-				// With the right payload, you can publish a message, add a reaction to a message,
-				// send a push notification, or send a small payload called a signal.
-				const publishPayload = {
-					channel: 'hello_world',
-					message: {
-						title: 'greeting',
-						description: message,
-					},
-				};
-				await pubnub.publish(publishPayload);
-			};
-		</script>
+      subscription.subscribe();
+    };
 
-		<div>
-			<input id="message-body" type="text" />
-			<button onclick="buttonClick()">Send</button>
-			<div id="messages"></div>
-		</div>
-	</body>
+    window.onload = setupPubNub;
+
+    const publishMessage = async (message) => {
+      const publishPayload = {
+        channel: 'hello_world',
+        message: {
+          title: 'greeting',
+          description: message,
+        },
+      };
+      await pubnub.publish(publishPayload);
+    };
+  </script>
+</body>
 </html>
