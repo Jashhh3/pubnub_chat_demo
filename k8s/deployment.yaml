@@ -17,5 +17,5 @@ spec:
         image: acr01custom01.azurecr.io/app:latest
         ports:
         - containerPort: 3000
-        imagePullSecrets:
-        - name: acr-creds
+      imagePullSecrets:
+      - name: acr-creds
