@@ -1,0 +1,14 @@
+{
+  "name": "pubnub-static-chat",
+  "version": "1.0.0",
+  "description": "Static PubNub chat app served with Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "author": "Jashwanth",
+  "license": "MIT"
+}
