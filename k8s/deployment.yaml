@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pubnub-chat-app
+  name: myapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pubnub-chat
+      app: myapp-chat
   template:
     metadata:
       labels:
-        app: pubnub-chat
+        app: myapp-chat
     spec:
       containers:
-      - name: pubnub-chat
-        image: <your-acr-name>.azurecr.io/pubnub-chat-demo:latest
+      - name: myapp-chat
+        image: acr01custom01.azurecr.io/app:latest
         ports:
         - containerPort: 3000
