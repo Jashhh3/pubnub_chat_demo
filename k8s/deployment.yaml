@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp-chat
-        image: acr01custom01.azurecr.io/app:latest
+        image: acr01custom01.azurecr.io/pubnubchatdemo:latest
         ports:
         - containerPort: 3000
       imagePullSecrets:
