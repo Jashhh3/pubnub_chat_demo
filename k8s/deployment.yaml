@@ -16,6 +16,6 @@ spec:
       - name: myapp-chat
         image: acr01custom01.azurecr.io/pubnub-chat-demo:latest
         ports:
-        - containerPort: 3000
+        - containerPort: 80         # ✅ FIXED HERE
       imagePullSecrets:
       - name: acr-auth
