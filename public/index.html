@@ -1,26 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Hello, PubNub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat App</title>
   <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.8.4.1.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    body {
+      background-color: #f5f7fb;
+      height: 100vh;
+      display: flex;
+    }
+    .sidebar {
+      width: 25%;
+      background: #2f3542;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .sidebar h2 {
+      margin-bottom: 20px;
+    }
+    .chat-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    .chat-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .chat-item:hover {
+      background: #57606f;
+      border-radius: 8px;
+      padding: 5px;
+    }
+    .chat-box {
+      width: 75%;
+      display: flex;
+      flex-direction: column;
+      background: #ecf0f1;
+    }
+    .chat-header {
+      background: white;
+      padding: 15px 20px;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+    }
+    .chat-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .message {
+      max-width: 60%;
+      margin-bottom: 15px;
+      padding: 10px 15px;
+      border-radius: 20px;
+      line-height: 1.4;
+      position: relative;
+      display: inline-block;
+      clear: both;
+    }
+    .message.sent {
+      background: #dfe6e9;
+      align-self: flex-start;
+      float: left;
+    }
+    .message.received {
+      background: #ff4757;
+      color: white;
+      float: right;
+    }
+    .chat-input {
+      padding: 15px 20px;
+      background: white;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #ccc;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+    .chat-input button {
+      background: #2ed573;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div>
-    <input id="message-body" type="text" />
-    <button onclick="buttonClick()">Send</button>
-    <div id="messages"></div>
+  <div class="sidebar">
+    <h2>Contacts</h2>
+    <div class="chat-item"><img src="https://i.pravatar.cc/100?img=1" /> <span>Chole Adams</span></div>
+    <div class="chat-item"><img src="https://i.pravatar.cc/100?img=2" /> <span>Amin Rokhead</span></div>
+    <div class="chat-item"><img src="https://i.pravatar.cc/100?img=3" /> <span>Zareena</span></div>
+    <div class="chat-item"><img src="https://i.pravatar.cc/100?img=1" /> <span>Chole Adams</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=2" /> <span>Amin Rokhead</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=3" /> <span>Zareena</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=4" /> <span>Ashton</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=5" /> <span>Ronda</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=6" /> <span>Joyce</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=7" /> <span>Collins</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=8" /> <span>Manoj</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=9" /> <span>Sanjay</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=10" /> <span>Priya</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=11" /> <span>Lakshmi</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=12" /> <span>David</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=13" /> <span>Elena</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=14" /> <span>Kiran</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=15" /> <span>Neha</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=16" /> <span>Aliya</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=17" /> <span>Raghav</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=18" /> <span>Jatin</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=19" /> <span>Rishi</span></div>
+<div class="chat-item"><img src="https://i.pravatar.cc/100?img=20" /> <span>Ananya</span></div>
+
+  </div>
+  <div class="chat-box">
+    <div class="chat-header">
+      <img src="https://i.pravatar.cc/100?img=1" />
+      <h3>Chole Adams</h3>
+    </div>
+    <div class="messages" id="messages"></div>
+    <div class="chat-input">
+      <input id="message-body" type="text" placeholder="Type your message..." />
+      <button onclick="buttonClick()">Send</button>
+    </div>
   </div>
 
   <script>
     const buttonClick = () => {
-      var input = document.getElementById('message-body');
+      const input = document.getElementById('message-body');
       publishMessage(input.value);
       input.value = '';
     };
 
-    const showMessage = (msg) => {
-      var message = document.createElement('div');
+    const showMessage = (msg, type) => {
+      const message = document.createElement('div');
+      message.className = 'message ' + type;
       message.innerText = msg;
       document.getElementById('messages').appendChild(message);
     };
@@ -38,30 +180,29 @@
       const subscription = channel.subscription();
 
       pubnub.addListener({
-        status: (s) => {
-          console.log('Status', s.category);
-        },
+        status: (s) => console.log('Status', s.category),
       });
 
-      subscription.onMessage = (messageEvent) => {
-        showMessage(messageEvent.message.description);
+      subscription.onMessage = (event) => {
+        showMessage(event.message.description, 'received');
       };
 
       subscription.subscribe();
     };
 
-    window.onload = setupPubNub;
-
     const publishMessage = async (message) => {
-      const publishPayload = {
+      const payload = {
         channel: 'hello_world',
         message: {
-          title: 'greeting',
+          title: 'chat',
           description: message,
         },
       };
-      await pubnub.publish(publishPayload);
+      await pubnub.publish(payload);
+      showMessage(message, 'sent');
     };
+
+    window.onload = setupPubNub;
   </script>
 </body>
 </html>
