@@ -5,8 +5,8 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: myapp-chat            # ✅ Match the label from deployment
+    app: myapp-chat           
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80           # ✅ FIXED HERE
+      targetPort: 80         
